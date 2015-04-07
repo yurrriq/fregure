@@ -1,0 +1,3 @@
+module Hello where
+
+helloWorld = "Hello from Frege!"

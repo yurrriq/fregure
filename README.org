@@ -1,0 +1,104 @@
+#+STARTUP: showall
+#+OPTIONS: ^:nil H:3 author:t
+#+OPTIONS: creator:nil date:t
+#+OPTIONS: email:nil num:nil
+#+OPTIONS: title:nil toc:nil todo:t
+#+DATE: [2017-03-16 Thu]
+#+AUTHOR: Eric Bailey
+#+EMAIL: eric@ericb.me
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.1 (Org mode 9.0.5)
+
+* Fregure
+  :PROPERTIES:
+  :CUSTOM_ID: fregure
+  :END:
+/Experiments in Frege and Clojure integration/
+
+[[https://github.com/Frege/frege][Frege]] + [[https://github.com/clojure/clojure][Clojure]] = :heart_eyes:
+
+** Installation
+   :PROPERTIES:
+   :CUSTOM_ID: installation
+   :END:
+#+BEGIN_SRC fish
+git clone https://github.com/yurrriq/fregure.git
+#+END_SRC
+
+** Usage
+   :PROPERTIES:
+   :CUSTOM_ID: usage
+   :END:
+Run the Frege compiler and then run the Clojure application:
+#+BEGIN_SRC fish
+lein do fregec, run
+#+END_SRC
+#+BEGIN_EXAMPLE
+Hello from Clojure!
+Hello from Frege!
+#+END_EXAMPLE
+
+You can also package up all the Clojure and Frege code and their runtimes:
+#+BEGIN_SRC fish
+lein uberjar
+#+END_SRC
+#+BEGIN_EXAMPLE
+calling: javac -cp ...
+Compiling fregure.core
+Created /path/to/project/target/uberjar+uberjar/fregure-0.1.0-SNAPSHOT.jar
+Created /path/to/project/target/uberjar/fregure-0.1.0-SNAPSHOT-standalone.jar
+#+END_EXAMPLE
+
+That produces a JAR file which you can run:
+#+BEGIN_SRC fish
+java -jar target/fregure-0.1.0-SNAPSHOT-standalone.jar
+#+END_SRC
+#+BEGIN_EXAMPLE
+Hello from Clojure!
+Hello from Frege!
+#+END_EXAMPLE
+
+** Links
+   :PROPERTIES:
+   :CUSTOM_ID: links
+   :END:
+- [[https://github.com/Frege/frege#what-is-frege-][What is Frege?]]
+- [[https://github.com/Frege/frege/wiki/Differences-between-Frege-and-Haskell][Difference between Frege and Haskell]]
+- [[http://seancorfield.github.io/blog/2015/02/13/frege-and-clojure/][Frege (and Clojure)]] blog post
+- [[https://github.com/seancorfield/lein-fregec][lein-fregec]]: a Leiningen to compile Frege code
+- [[http://try.frege-lang.org][Online REPL]]
+
+** How to Install the REPL
+   :PROPERTIES:
+   :CUSTOM_ID: how-to-install-the-repl
+   :END:
+#+BEGIN_SRC fish
+# First install frege-interpreter...
+git clone https://github.com/Frege/frege-interpreter.git
+pushd frege-interpreter
+mvn install
+popd
+
+# ... and frege-repl.
+git clone https://github.com/Frege/frege-repl.git; and cd frege-repl
+mvn install
+
+# Then make symlinks.
+
+# Frege REPL
+ln -s (pwd)/frege-repl-core/target/frepl/bin/frepl /usr/local/bin/frepl
+
+# Graphic REPL (standalone REPL with basic GUI)
+ln -s (pwd)/frege-repl-core/target/frepl/bin/frepl /usr/local/bin/frepl
+
+# JLine-enabled REPL (think rlwrap)
+ln -s (pwd)/frege-repl-core/target/frepl/bin/frepl /usr/local/bin/frepl
+#+END_SRC
+
+** License
+   :PROPERTIES:
+   :CUSTOM_ID: license
+   :END:
+This is [[http://unlicense.org][free and unencumbered software]] released into the [[http://stpeter.im/writings/essays/publicdomain.html][public domain]].
